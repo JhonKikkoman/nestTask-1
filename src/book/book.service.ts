@@ -7,27 +7,29 @@ import { Book, BookDocument } from './entities/schemas/book.schema';
 
 @Injectable()
 export class BookService {
-  // constructor(
-  //   @InjectModel(Book.name) private readonly BookModel: Model<BookDocument>,
-  //   @InjectConnection() private readonly connection: Connection
-  // );
-  create(createBookDto: CreateBookDto) {
-    return 'This action adds a new book';
+  constructor(
+    @InjectModel(Book.name) private readonly BookModel: Model<BookDocument>,
+    @InjectConnection() private readonly connection: Connection,
+  ) {}
+
+  createBook(data: CreateBookDto): Promise<BookDocument> {
+    const book = new this.BookModel(data);
+    return book.save();
   }
 
-  findAll() {
-    return `This action returns all book`;
+  getBooks(): Promise<BookDocument[]> {
+    return this.BookModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} book`;
+  findBook(id: string): Promise<BookDocument> {
+    return this.BookModel.findById({ _id: id });
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
-    return `This action updates a #${id} book`;
+  update(id: string, data: UpdateBookDto) {
+    return this.BookModel.findOneAndUpdate({ _id: id }, data);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} book`;
+  remove(id: string) {
+    return this.BookModel.findOneAndDelete({ _id: id });
   }
 }
