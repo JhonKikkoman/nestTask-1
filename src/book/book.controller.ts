@@ -19,11 +19,11 @@ export class BookController {
 
   @Post()
   create(@Body() createBookDto: CreateBookDto): Promise<BookDocument> {
-    return this.bookService.createBook(createBookDto);
+    return this.bookService.createBook(createBookDto); 
   }
 
   @Get()
-  findAllBooks() {
+  findAllBooks(): Promise<BookDocument[]> {
     return this.bookService.getBooks();
   }
 

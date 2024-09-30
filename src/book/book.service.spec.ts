@@ -15,4 +15,10 @@ describe('BookService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  // describe('testing CRUD', () => {
+  //   it('create Book, method - POST', () => {
+  //     // expect().
+  //   });
+  // });
 });
